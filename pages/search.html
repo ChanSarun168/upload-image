@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .popup-overlay {
+            background-color: rgba(0, 0, 0, 0.75);
+        }
+        body{
+            font-family: "Poppins", sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <header id="navigation-menu" class="sticky top-0 z-40">
+        <nav class="bg-white px-6 py-2 flex items-center justify-between shadow-sm">
+            <a href="#" class="flex items-center space-x-4">
+                <img src="/images/logo.png" alt="logo">
+            </a>
+
+            <div class="flex items-center space-x-8">
+                <a href="#" class="font-medium hover:text-red-500 transition-colors">Home</a>
+
+                <div class="relative group">
+                    <button class="flex items-center font-medium hover:text-red-500 transition-colors">
+                        Collection
+                        <i class="fa-solid fa-chevron-down ml-2"></i>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 w-48 py-2 z-10">
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Profile</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Favorited</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Saved</a>
+                    </div>
+                </div>
+                
+                <button class="bg-gray-200 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors hidden md:block">Log in</button>
+                <button class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-green-600 transition-colors shadow-md" id="upload-image">Upload</button>
+            </div>
+        </nav>
+
+        <section class="sticky top-16 bg-gray-50 z-40">
+            <div class="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+                <div class="flex items-center space-x-2 w-full justify-center">
+
+                    <form name="search" class="flex w-full max-w-lg">
+                        <input type="text" id="search-box-results" class="flex-grow px-6 py-2 border rounded-l-full focus:outline-none focus:ring-2 focus:ring-black" placeholder="Search for photos...">
+                        <button type="submit" id="search-btn-results" class="px-4 py-2 bg-black text-white rounded-r-full transition-colors">
+                            <i class="fa-solid fa-search"></i>
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+    </header>
+    
+
+    <main class="container mx-auto px-4 py-8">
+        
+        <section id="gallery"class=" w-full h-full p-6 columns-4 gap-6 gap-y-6">
+        </section>
+
+
+        <section id="popupImage-section">
+        <div id="image-popup" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-75 opacity-0 transition-opacity duration-300">
+            <div class="relative w-[90%] md:w-[80%] h-[90%] bg-white rounded-2xl flex flex-col p-4 shadow-2xl">
+                
+                <div class="flex items-center justify-between p-4">
+                    <div class="flex items-center space-x-4">
+                        <img id="popup-user-avatar" class="w-10 h-10 rounded-full" src="#" alt="User Profile" />
+                        <div>
+                            <h2 id="popup-user-name" class="text-md font-semibold text-gray-800"></h2>
+                            <p class="text-sm text-gray-600">
+                                <a href="#" class="text-blue-600 hover:underline">Follow</a>
+                                <span class="text-gray-400 mx-1">•</span>
+                                <a href="#" class="text-gray-600 hover:underline">Donate</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="flex items-center space-x-2 px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                            <i class="fa-regular fa-bookmark"></i>
+                            <span>Collect</span>
+                        </button>
+                        <button class="flex items-center space-x-2 px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                            <i class="fa-regular fa-heart"></i>
+                            <span id="popup-like-count">Like</span>
+                        </button>
+                        <button class="flex items-center space-x-2 px-3 py-2 rounded-md bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>Edit in Canva</span>
+                        </button>
+                        <div class="relative group">
+                            <button class="flex items-center space-x-2 px-4 py-2 rounded-md bg-green-500 text-white hover:bg-green-600 transition-colors">
+                                <i class="fa-solid fa-arrow-down"></i>
+                                <span>Free download</span>
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </button>
+                            <div class="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-md hidden group-hover:block">
+                                <a href="#" id="download-small" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Small</a>
+                                <a href="#" id="download-medium" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Medium</a>
+                                <a href="#" id="download-large" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Large</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-grow flex items-center justify-center relative bg-gray-100 rounded-lg my-4">
+                    <img id="large-img" src="" class="w-auto h-full max-w-full max-h-full object-contain" alt="Popup Image" />
+                    <button id="pre-btn" class="absolute left-4 p-3 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button id="nxt-btn" class="absolute right-4 p-3 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <button id="close-btn" class="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+        </section>
+
+        <section id="loadingIndicator">
+            <div class="text-center py-8 hidden">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto dark:border-gray-100"></div>
+                <p class="text-gray-600 mt-4 dark:text-gray-300">Loading images...</p>
+            </div>
+            <div class="text-center py-5 text-lg text-red-600 hidden" id="errorMessages"></div>
+
+            <div class="text-center mt-8">
+                <button id="showMoreButton"> </button>
+            </div>
+        </section>
+
+    </main>
+
+    
+
+    <script>
+        const access_key = "i25ZBDCmKcrOOzF0dhWnV3GlTFeC8F466csveqAgQOc";
+
+        // DOM Elements
+        const gallery = document.querySelector('#gallery');
+        const popup = document.getElementById("image-popup");
+        const largeImage = document.getElementById("large-img");
+        const preBtn = document.getElementById("pre-btn");
+        const nxtBtn = document.getElementById("nxt-btn");
+        const closeBtn = document.getElementById("close-btn");
+        const searchInputResults = document.getElementById('search-box-results');
+        const searchButtonResults = document.getElementById('search-btn-results');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const errorMessages = document.getElementById('errorMessages');
+
+        // Popup specific DOM elements
+        const popupUserAvatar = document.getElementById('popup-user-avatar');
+        const popupUserName = document.getElementById('popup-user-name');
+        const popupUserFollowers = document.getElementById('popup-user-followers');
+        const popupLikeCount = document.getElementById('popup-like-count');
+        const downloadSmall = document.getElementById('download-small');
+        const downloadMedium = document.getElementById('download-medium');
+        const downloadLarge = document.getElementById('download-large');
+
+        // State
+        let currentImage = 0;
+        let allImages = [];
+        let currentPage = 1;
+        let currentSearchQuery = '';
+        let isFetching = false;
+
+        // Show/Hide UI
+        const showLoading = () => {
+            gallery.innerHTML = '';
+            loadingIndicator.classList.remove('hidden');
+            errorMessages.classList.add('hidden');
+        };
+
+        const hideLoading = () => loadingIndicator.classList.add('hidden');
+
+        const showError = (message) => {
+            hideLoading();
+            gallery.innerHTML = '';
+            errorMessages.textContent = message;
+            errorMessages.classList.remove('hidden');
+        };
+
+        // API
+        const getImages = async (query = 'random', page = 1) => {
+            if (isFetching) return;
+            isFetching = true;
+            currentSearchQuery = query;
+
+            if (page === 1) showLoading();
+
+            try {
+                const url = `https://api.unsplash.com/search/photos?client_id=${access_key}&query=${query}&per_page=20&page=${page}`;
+                const res = await fetch(url);
+                if (!res.ok) throw new Error(`Status: ${res.status}`);
+                const data = await res.json();
+                const newImages = data.results;
+
+                if (page === 1) allImages = [];
+
+                if (newImages && newImages.length > 0) {
+                    allImages = allImages.concat(newImages);
+                    makeImages(newImages);
+                } else if (page === 1) {
+                    showError("No images found for this search. Please try a different term.");
+                }
+            } catch (err) {
+                console.error("Error fetching images:", err);
+                showError("Failed to load images. Please check your network connection or API key.");
+            } finally {
+                hideLoading();
+                isFetching = false;
+            }
+        };
+
+        // Build gallery
+        const makeImages = (images) => {
+            images.forEach((item) => {
+                const card = document.createElement('div');
+                card.className = 'relative group w-full h-[300px] mb-6 rounded-2xl overflow-hidden';
+
+                const img = document.createElement('img');
+                img.src = item.urls.regular;
+                img.className = 'gallery-img w-full h-full object-cover rounded-2xl cursor-pointer';
+                img.alt = item.alt_description || 'Unsplash Image';
+                img.dataset.id = item.id;
+
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('a') || e.target.closest('i')) return;
+                    
+                    const clickedImageId = item.id;
+                    currentImage = allImages.findIndex(img => img.id === clickedImageId);
+                    
+                    showPopup(allImages[currentImage]);
+                });
+
+                const overlay = document.createElement('div');
+                overlay.className = 'absolute inset-0 p-4 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300';
+                overlay.style.background = 'linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0))';
+
+                const topOverlay = document.createElement('div');
+                topOverlay.className = 'flex justify-between items-center';
+
+                const profile = document.createElement('div');
+                profile.className = 'flex items-center text-white';
+                const avatar = document.createElement('img');
+                avatar.src = item.user.profile_image.small;
+                avatar.alt = item.user.name;
+                avatar.className = 'w-8 h-8 rounded-full mr-2';
+                const name = document.createElement('span');
+                name.className = 'font-bold text-sm';
+                name.textContent = item.user.name;
+
+                profile.appendChild(avatar);
+                profile.appendChild(name);
+
+                const download = document.createElement('a');
+                download.href = item.urls.full;
+                download.download = true;
+                download.target = "_blank";
+                download.className = 'bg-green-500 hover:bg-green-600 text-white text-sm px-3 py-1 rounded-full';
+                download.innerHTML = `<i class="fa-solid fa-download mr-1"></i>Download`;
+
+                topOverlay.appendChild(profile);
+                topOverlay.appendChild(download);
+
+                const bottomOverlay = document.createElement('div');
+                bottomOverlay.className = 'flex justify-end text-white space-x-4';
+                bottomOverlay.innerHTML = `
+                    <i class="fa-regular fa-heart text-xl cursor-pointer"></i>
+                    <i class="fa-regular fa-bookmark text-xl cursor-pointer"></i>
+                `;
+
+                overlay.appendChild(topOverlay);
+                overlay.appendChild(bottomOverlay);
+
+                card.appendChild(img);
+                card.appendChild(overlay);
+                gallery.appendChild(card);
+            });
+        };
+
+        // Popup logic
+        const showPopup = (item) => {
+            if (!item) return;
+
+            largeImage.src = item.urls.regular;
+
+            if (item.user) {
+                popupUserAvatar.src = item.user.profile_image.large;
+                popupUserName.textContent = item.user.name;
+                if (item.user.total_photos) {
+                    popupUserFollowers.textContent = `${item.user.total_photos} photos`;
+                } else {
+                    popupUserFollowers.textContent = "No follower data.";
+                }
+            }
+
+            popupLikeCount.textContent = `Like ${item.likes}`;
+            
+            if (downloadSmall) downloadSmall.href = item.urls.small;
+            if (downloadMedium) downloadMedium.href = item.urls.regular;
+            if (downloadLarge) downloadLarge.href = item.urls.full;
+            
+            popup.classList.remove('hidden');
+            setTimeout(() => popup.classList.add('opacity-100'), 10);
+        };
+
+        const hidePopup = () => {
+            popup.classList.remove('opacity-100');
+            setTimeout(() => popup.classList.add('hidden'), 300);
+        };
+
+        // Event Listeners for Popup
+        closeBtn.addEventListener('click', hidePopup);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape" && !popup.classList.contains('hidden')) {
+                hidePopup();
+            }
+        });
+        preBtn.addEventListener('click', () => {
+            if (currentImage > 0) {
+                currentImage--;
+                showPopup(allImages[currentImage]);
+            }
+        });
+        nxtBtn.addEventListener('click', () => {
+            if (currentImage < allImages.length - 1) {
+                currentImage++;
+                showPopup(allImages[currentImage]);
+            }
+        });
+
+        // Search functionality for this page
+        searchButtonResults.addEventListener('click', (e) => {
+            e.preventDefault();
+            const term = searchInputResults.value.trim();
+            if (term) {
+                currentPage = 1;
+                getImages(term);
+            }
+        });
+        searchInputResults.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const term = searchInputResults.value.trim();
+                if (term) {
+                    currentPage = 1;
+                    getImages(term);
+                }
+            }
+        });
+
+        
+
+        // Infinite scroll
+        window.addEventListener('scroll', () => {
+            const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+            if (scrollTop + clientHeight >= scrollHeight - 100) {
+                if (!isFetching) {
+                    currentPage++;
+                    getImages(currentSearchQuery, currentPage);
+                }
+            }
+        });
+
+        // Initial load for this page: Check URL for query
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryFromUrl = urlParams.get('query');
+            if (queryFromUrl) {
+                searchInputResults.value = queryFromUrl;
+                getImages(queryFromUrl);
+            } else {
+                getImages("random");
+            }
+        });
+    </script>
+</body>
+</html>

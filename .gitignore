@@ -1,0 +1,16 @@
+# Ignore environment variables file with secrets
+.env
+
+# Ignore dependencies folder
+node_modules/
+
+# Ignore build outputs
+dist/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+

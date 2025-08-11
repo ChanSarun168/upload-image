@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Image</title>
+    <link rel="stylesheet" href="/src/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    
+    <header id="navigation-menu" class="sticky top-0 z-20">
+        <nav class="bg-white px-6 py-2 flex items-center justify-between shadow-sm  ">
+            <a href="#" class="flex items-center space-x-4">
+                <img src="/images/logo.png" alt="logo">
+            </a>
+
+            <div class="flex items-center space-x-8">
+                <button class="p-2 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+                    <a href="/pages/search.html"><i class="fa-solid fa-magnifying-glass"></i></a>
+                </button>
+
+                <a href="#" class="font-medium hover:text-red-500 transition-colors">Home</a>
+
+                <div class="relative group">
+                    <button class="flex items-center font-medium hover:text-red-500 transition-colors">
+                        Collection
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+
+                    <div class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 w-48 py-2 z-10">
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Profile</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Favorited</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors">Saved</a>
+                    </div>
+                </div>
+                
+                <button class="bg-gray-200 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors hidden md:block">Log in</button>
+
+                <button class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-green-600 transition-colors shadow-md" id="uploadBtn">Upload</button>
+            </div>
+        </nav>
+    </header>
+
+
+    <main id="main-container">
+        <section id="hero-section" class="relative bg-cover bg-center h-100 flex items-center">
+            <div id="hero-content" class="container mx-auto text-center relative z-10">
+                <h1 id="text" class="text-white text-4xl md:text-6xl font-bold mb-4">Search Images</h1>
+                <p id="sub-text" class="relative px-4 pb-[40px] pt-[30px] text-lg md:text-xl font-light capitalize tracking-wide text-white">
+                    The best royalty-free images you can find here.
+                    <span class="absolute bottom-[-10px] left-1/2 h-2 w-2 -translate-x-1/2 transform rounded-full bg-white"></span>
+                    <span class="absolute bottom-0 left-1/2 h-[1px] w-1/4 -translate-x-1/2 transform bg-white"></span>
+                </p>
+
+                
+                <form name="search" class="mt-8 md:mt-12 flex justify-center">
+                    <input id="search-box" type="text" placeholder="Search image" class="w-full md:w-1/2 h-12 px-4 rounded-full border-none text-black capitalize outline-none shadow-md focus:ring-2 focus:ring-black bg-white" autocomplete="off" />
+                    
+                </form>
+
+                
+                <div class="mt-6 flex flex-wrap justify-center gap-4">
+                    
+                        <button class="h-12 px-6 rounded-full border-none bg-white text-black capitalize outline-none shadow-md hover:bg-green-600 hover:text-white focus:ring-2 focus:ring-green-500 transition duration-300">
+                            <a href="" >
+                                <i class="fa-solid fa-magnifying-glass-plus mr-2"></i>
+                                Deep Search
+                            </a>
+                        </button>
+                    
+                    
+
+                    <button id="uploadBtn" class="h-12 px-6 rounded-full border-none bg-white text-black capitalize outline-none shadow-md hover:bg-green-600 hover:text-white focus:ring-2 focus:ring-green-500 transition duration-300">
+                        <i class="fa-solid fa-image mr-2"></i>Upload Image
+                    </button>
+
+                    <input type="file" class="hidden" id="upload-image" accept="image/*">
+
+                    <button class="h-12 px-6 rounded-full border-none bg-white text-black capitalize outline-none shadow-md hover:bg-green-600 hover:text-white focus:ring-2 focus:ring-green-500 transition duration-300">
+                        <i class="fa-solid fa-heart mr-2"></i> Favorited
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="fitler-btn" class="">
+            <nav class="border-b border-gray-300 p-6 ">
+                <ul id="nav-list" class="flex space-x-8 text-gray-600 overflow-x-auto whitespace-nowrap">
+                    <li>
+                        <a href="#" class="nav-link  text-lg hover:underline hover:text-black " data-category="featured">Featured</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link hover:underline hover:text-black text-lg" data-category="wallpapers">Wallpapers</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link hover:underline hover:text-black text-lg" data-category="nature">Nature</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link hover:underline hover:text-black text-lg" data-category="3d-renders">3D Renders</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link hover:underline hover:text-black text-lg" data-category="textures">Textures</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link hover:underline hover:text-black text-lg" data-category="travel">Travel</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link hover:underline hover:text-black text-lg" data-category="film">Film</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link hover:underline hover:text-black text-lg" data-category="people">People</a>
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="nav-link hover:underline hover:text-black text-lg" data-category="mountain">Mountain</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link hover:underline hover:text-black text-lg" data-category="food">Food</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link hover:underline hover:text-black text-lg" data-category="city">City</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link hover:underline hover:text-black text-lg" data-category="building">Building</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link hover:underline hover:text-black text-lg" data-category="house">House</a>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+
+        <section id="popupImage-section" >
+            
+            <div id="image-popup" class="flex fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-white shadow-2xl rounded-2xl z-50 justify-center items-center opacity-0 transition-opacity duration-300">
+
+                
+            <div id="close-btn" class="absolute top-[10px] left-[20px] w-[30px] h-[30px] bg-red-600 rounded-md cursor-pointer"><i class="fa-solid fa-xmark"></i></div>
+
+            <a id="download-btn" href="#" download class="capitalize px-4 py-2 bg-green-600 text-white rounded-full absolute top-[10px] right-[20px] z-10"><i class="fa-solid fa-arrow-up-from-bracket mr-2"></i>Free Download</a>
+
+            <img src="" class="large-img h-[80%] w-auto max-w-[80%] object-contain rounded-md" alt="Popup Image">
+
+            <button id="pre-btn" class="absolute top-1/2 left-[20px] transform -translate-y-1/2 bg-white p-2 rounded-full shadow"><i class="fa-solid fa-chevron-left"></i></button>
+
+            <button id="nxt-btn" class="absolute top-1/2 right-[20px] transform -translate-y-1/2 bg-white p-2 rounded-full shadow"><i class="fa-solid fa-chevron-right"></i></button>
+
+
+
+            </div>
+
+            
+        </section>
+
+        <section id="gallery" class="gallery w-full h-full p-6 columns-4 gap-6 gap-y-6">
+        </section>
+
+
+            <!-- Loading message when scroll -->
+        <section>
+            <div id="loadingIndicator" class="text-center py-8 hidden">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto dark:border-gray-100"></div>
+                <p class="text-gray-600 mt-4 dark:text-gray-300">Loading images...</p>
+            </div>
+            <div class="text-center py-5 text-lg text-red-600 hidden" id="errorMessages"></div>
+
+            <div class="text-center mt-8">
+                <button id="showMoreButton"> </button>
+            </div>
+        </section>
+
+    </main>
+
+    
+    
+    <script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/* google font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Hero section background image with an overlay for better text readability */
+        #hero-section { 
+            /* Using a high-resolution, royalty-free image from Unsplash */
+            background-image: url('/images/cover.jpg');
+            /* background-image: url('https://source.unsplash.com/random/1600x600'); */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat; 
+        }
+
+        
+        /* Hide scrollbar for non-essential scrolling elements */
+        /* .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            /* scrollbar-width: none;  Firefox */
+        /* } 
+
+
+
+        /* Optional: Add a smooth transition for the underline and bold state */
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+        }
+        /* Style for the active link (JavaScript will add this class) */
+        .active {
+            font-weight: medium;
+            text-decoration: underline;
+            text-underline-offset: 4px; /* Adjust spacing of the underline */
+        }
+
+        /* Initial State (Default) */
